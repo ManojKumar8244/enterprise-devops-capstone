@@ -53,3 +53,10 @@ jobs:
       - name: Build Application
 
         run: npm run build
+
+      # Build Docker image
+      - name: Build Docker Image
+
+        run: |
+
+          docker build -t myapp:${{ github.sha }} .
