@@ -1,25 +1,18 @@
 name: Enterprise Deployment Pipeline
 
 on:
-
   push:
-
     branches:
-
       - feature/terraform
-
       - main
 
 jobs:
-
   deploy:
-
     runs-on: ubuntu-latest
-
 
     defaults:
       run:
-       working-directory: app
+        working-directory: app
 
     steps:
 
@@ -28,7 +21,6 @@ jobs:
       ##########################################################
 
       - name: Checkout Repository
-
         uses: actions/checkout@v4
 
       ##########################################################
@@ -36,65 +28,59 @@ jobs:
       ##########################################################
 
       - name: Configure AWS Credentials
-
         uses: aws-actions/configure-aws-credentials@v4
-
         with:
-
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
           aws-region: ${{ secrets.AWS_REGION }}
 
       ##########################################################
-      # Read Secret
+      # Retrieve Database Secret
       ##########################################################
 
-  - name: Retrieve Database Secret
-  run: |
-    SECRET=$(aws secretsmanager get-secret-value \
-      --secret-id "${{ secrets.SECRET_NAME }}" \
-      --query SecretString \
-      --output text)
+      - name: Retrieve Database Secret
+        run: |
+          SECRET=$(aws secretsmanager get-secret-value \
+            --secret-id "${{ secrets.SECRET_NAME }}" \
+            --query SecretString \
+            --output text)
 
-    DB_USERNAME=$(echo "$SECRET" | jq -r '.username')
-    DB_PASSWORD=$(echo "$SECRET" | jq -r '.password')
+          DB_USERNAME=$(echo "$SECRET" | jq -r '.username')
+          DB_PASSWORD=$(echo "$SECRET" | jq -r '.password')
 
-    echo "DB_USERNAME=$DB_USERNAME" >> $GITHUB_ENV
-    echo "DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
+          echo "DB_USERNAME=$DB_USERNAME" >> $GITHUB_ENV
+          echo "DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
 
       ##########################################################
-      # Display Secret Length
+      # Verify Secret
       ##########################################################
 
       - name: Verify Secret
-
         run: |
+          echo "Database Username: $DB_USERNAME"
 
-          echo "Secret retrieved successfully."
-
-          echo $DB_SECRET | jq .
+          if [ -n "$DB_PASSWORD" ]; then
+            echo "Database Password retrieved successfully."
+          else
+            echo "Database Password not found!"
+            exit 1
+          fi
 
       ##########################################################
       # Docker Build
       ##########################################################
 
       - name: Build Docker Image
-
         run: |
-
           docker build \
-          --build-arg DB_USERNAME=$DB_USERNAME \
-          --build-arg DB_PASSWORD=$DB_PASSWORD \
-          -t enterprise-app .
+            --build-arg DB_USERNAME=$DB_USERNAME \
+            --build-arg DB_PASSWORD=$DB_PASSWORD \
+            -t enterprise-app .
 
       ##########################################################
       # Deployment
       ##########################################################
 
       - name: Deploy
-
         run: |
-
           echo "Deploying Application..."
