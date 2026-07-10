@@ -21,3 +21,7 @@ private_subnet_1 = "10.0.3.0/24"
 private_subnet_2 = "10.0.4.0/24"
 
 kubernetes_version = "1.31"
+
+db_username = "admin"
+
+db_password = "ChangeMe123!"

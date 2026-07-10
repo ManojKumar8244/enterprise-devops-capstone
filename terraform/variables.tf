@@ -43,3 +43,21 @@ variable "kubernetes_version" {
   type        = string
   default     = "1.30"
 }
+
+############################################################
+# Database Username
+############################################################
+
+variable "db_username" {
+  type      = string
+  sensitive = true
+}
+
+############################################################
+# Database Password
+############################################################
+
+variable "db_password" {
+  type      = string
+  sensitive = true
+}

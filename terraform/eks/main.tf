@@ -190,12 +190,6 @@ resource "aws_eks_node_group" "main" {
     Project     = var.project_name
   }
 
-  taint {
-    key    = "workload"
-    value  = "application"
-    effect = "NO_SCHEDULE"
-  }
-
   depends_on = [
     aws_eks_cluster.cluster
   ]

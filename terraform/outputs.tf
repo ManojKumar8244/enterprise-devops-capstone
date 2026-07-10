@@ -95,3 +95,9 @@ output "cloudwatch_log_group" {
   value = module.cloudwatch.log_group_name
 
 }
+
+output "secret_arn" {
+
+  value = module.secrets.secret_arn
+
+}
