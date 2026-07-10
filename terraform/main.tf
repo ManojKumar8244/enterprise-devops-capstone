@@ -2,6 +2,10 @@
 # main.tf
 ############################################################
 
+############################################################
+# VPC MODULE
+############################################################
+
 module "vpc" {
 
   source = "./vpc"
@@ -19,6 +23,10 @@ module "vpc" {
   private_subnet_2 = var.private_subnet_2
 
 }
+
+############################################################
+# IAM MODULE
+############################################################
 
 module "iam" {
 
@@ -60,17 +68,17 @@ module "eks" {
 # CloudWatch Module
 ############################################################
 
-module "cloudwatch" {
+#module "cloudwatch" {
 
-  source = "./cloudwatch"
+  #source = "./cloudwatch"
 
-  project_name = var.project_name
+  #project_name = var.project_name
 
-  environment = var.environment
+  #environment = var.environment
 
-  cluster_name = var.cluster_name
+  #cluster_name = var.cluster_name
 
-}
+  #}
 
 ############################################################
 # Secrets Module
