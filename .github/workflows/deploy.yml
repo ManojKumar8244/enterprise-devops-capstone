@@ -41,7 +41,7 @@ jobs:
       - name: Retrieve Database Secret
         run: |
           SECRET=$(aws secretsmanager get-secret-value \
-            --secret-id "${{ secrets.SECRET_NAME }}" \
+            --secret-id "${{ secrets.AWS_SECRET_NAME }}" \
             --query SecretString \
             --output text)
 
