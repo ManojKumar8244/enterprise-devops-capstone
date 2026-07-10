@@ -42,6 +42,20 @@ jobs:
 
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Verify AWS Identity
+
+        run: aws sts get-caller-identity
+
+      - name: Test Secrets Manager
+
+        run: |
+
+          aws secretsmanager get-secret-value \
+
+            --secret-id ${{ secrets.SECRET_NAME }} \
+
+            --region ${{ secrets.AWS_REGION }}
+
       ##########################################################
       # Read Secret
       ##########################################################
