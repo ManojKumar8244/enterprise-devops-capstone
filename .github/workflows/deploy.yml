@@ -51,18 +51,18 @@ jobs:
       # Read Secret
       ##########################################################
 
-      - name: Retrieve Database Secret
+  - name: Retrieve Database Secret
+  run: |
+    SECRET=$(aws secretsmanager get-secret-value \
+      --secret-id "${{ secrets.SECRET_NAME }}" \
+      --query SecretString \
+      --output text)
 
-        id: secret
+    DB_USERNAME=$(echo "$SECRET" | jq -r '.username')
+    DB_PASSWORD=$(echo "$SECRET" | jq -r '.password')
 
-        run: |
-
-          SECRET=$(aws secretsmanager get-secret-value \
-            --secret-id ${{ secrets.SECRET_NAME }} \
-            --query SecretString \
-            --output text)
-
-          echo "DB_SECRET=$SECRET" >> $GITHUB_ENV
+    echo "DB_USERNAME=$DB_USERNAME" >> $GITHUB_ENV
+    echo "DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
 
       ##########################################################
       # Display Secret Length
