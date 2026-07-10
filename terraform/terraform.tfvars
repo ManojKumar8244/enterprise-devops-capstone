@@ -24,4 +24,4 @@ kubernetes_version = "1.31"
 
 db_username = "admin"
 
-db_password = "ChangeMe123!"
+db_password = "StrongPassword@123"
