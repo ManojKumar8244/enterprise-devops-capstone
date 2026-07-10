@@ -6,7 +6,7 @@ on:
 
     branches:
 
-      - feature/terraform
+      - feature/secrets
 
       - main
 
@@ -15,6 +15,11 @@ jobs:
   deploy:
 
     runs-on: ubuntu-latest
+
+
+    defaults:
+      run:
+       working-directory: app
 
     steps:
 
@@ -42,36 +47,28 @@ jobs:
 
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Verify AWS Identity
-
-        run: aws sts get-caller-identity
-
-      - name: Test Secrets Manager
-
-        run: |
-
-          aws secretsmanager get-secret-value \
-
-            --secret-id enterprise-devops-dev-database \
-
-            --region ${{ secrets.AWS_REGION }}
-
       ##########################################################
       # Read Secret
       ##########################################################
 
       - name: Retrieve Database Secret
 
-        id: secret
+      #  id: secret
 
         run: |
 
           SECRET=$(aws secretsmanager get-secret-value \
-            --secret-id enterprise-devops-dev-database \
+            --secret-id ${{ secrets.SECRET_NAME }} \
             --query SecretString \
             --output text)
 
-          echo "DB_SECRET=$SECRET" >> $GITHUB_ENV
+          DB_USERNAME=$(echo $SECRET | jq -r '.username')
+
+          DB_PASSWORD=$(echo $SECRET | jq -r '.password')
+
+          echo "DB_USERNAME=$DB_USERNAME" >> $GITHUB_ENV
+
+          echo "DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
 
       ##########################################################
       # Display Secret Length
@@ -93,7 +90,10 @@ jobs:
 
         run: |
 
-          docker build -t enterprise-app .
+          docker build \
+          --build-arg DB_USERNAME=$DB_USERNAME \
+          --build-arg DB_PASSWORD=$DB_PASSWORD \
+          -t enterprise-app .
 
       ##########################################################
       # Deployment
