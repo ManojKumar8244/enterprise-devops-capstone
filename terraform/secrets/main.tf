@@ -1,46 +1,14 @@
 ############################################################
-# Secrets Manager
-############################################################
-
-locals {
-
-  common_tags = {
-
-    Project     = var.project_name
-
-    Environment = var.environment
-
-    ManagedBy   = "Terraform"
-
-  }
-
-}
-
-############################################################
-# Secrets Manager Secret
+# AWS Secrets Manager Secret
 ############################################################
 
 resource "aws_secretsmanager_secret" "database" {
 
-  name = "${var.project_name}-${var.environment}-database1"
+  name = "${var.project_name}-${var.environment}-database2"
 
   description = "Database Credentials"
 
-  recovery_window_in_days = 7
-
-  tags = merge(
-
-    local.common_tags,
-
-    var.additional_tags
-
-  )
-
 }
-
-############################################################
-# Secret Value
-############################################################
 
 resource "aws_secretsmanager_secret_version" "database" {
 

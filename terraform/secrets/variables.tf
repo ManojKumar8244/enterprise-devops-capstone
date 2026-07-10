@@ -1,65 +1,21 @@
 ############################################################
-# Secrets Module Variables
-############################################################
-
-############################################################
-# Project Name
+# Secrets Variables
 ############################################################
 
 variable "project_name" {
-
-  description = "Project Name"
-
   type = string
-
 }
-
-############################################################
-# Environment
-############################################################
 
 variable "environment" {
-
-  description = "Deployment Environment"
-
   type = string
-
 }
-
-############################################################
-# Database Username
-############################################################
 
 variable "db_username" {
-
-  description = "Database Username"
-
-  type = string
-
+  type      = string
+  sensitive = true
 }
-
-############################################################
-# Database Password
-############################################################
 
 variable "db_password" {
-
-  description = "Database Password"
-
-  type = string
-
+  type      = string
   sensitive = true
-
-}
-
-############################################################
-# Additional Tags
-############################################################
-
-variable "additional_tags" {
-
-  type = map(string)
-
-  default = {}
-
 }
