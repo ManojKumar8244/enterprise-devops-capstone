@@ -6,7 +6,7 @@ on:
 
     branches:
 
-      - feature/secrets
+      - feature/terraform
 
       - main
 
