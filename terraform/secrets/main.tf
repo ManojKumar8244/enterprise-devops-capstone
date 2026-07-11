@@ -4,7 +4,7 @@
 
 resource "aws_secretsmanager_secret" "database" {
 
-  name = "${var.project_name}-${var.environment}-database2"
+  name = "${var.project_name}-${var.environment}-database3"
 
   description = "Database Credentials"
 
