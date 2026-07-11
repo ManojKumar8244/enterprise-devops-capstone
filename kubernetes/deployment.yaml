@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: enterprise-devops
+  namespace: enterprise-devops
+
+  labels:
+    app: enterprise-devops
+
+spec:
+  replicas: 2
+
+  revisionHistoryLimit: 5
+
+  selector:
+    matchLabels:
+      app: enterprise-devops
+
+  strategy:
+    type: RollingUpdate
+
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+
+  template:
+
+    metadata:
+
+      labels:
+        app: enterprise-devops
+
+    spec:
+
+      containers:
+
+      - name: enterprise-devops
+
+        image: 705557196379.dkr.ecr.us-east-1.amazonaws.com/enterprise-devops:82aa70a662154503d364c356d7be063d73e6a7fa
+
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 3000
+
+        envFrom:
+        - configMapRef:
+            name: enterprise-config
+
+        env:
+
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-devops-secret
+              key: username
+
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-devops-secret
+              key: password
+
+        resources:
+
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
+        livenessProbe:
+
+          httpGet:
+
+            path: /
+
+            port: 3000
+
+          initialDelaySeconds: 30
+
+          periodSeconds: 15
+
+        readinessProbe:
+
+          httpGet:
+
+            path: /
+
+            port: 3000
+
+          initialDelaySeconds: 10
+
+          periodSeconds: 10
