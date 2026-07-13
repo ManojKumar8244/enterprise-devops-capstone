@@ -51,6 +51,8 @@ jobs:
             -Dsonar.sourceEncoding=UTF-8 ^
             -Dsonar.host.url=%SONAR_HOST_URL% ^
             -Dsonar.token=%SONAR_TOKEN%
+            -Dsonar.qualitygate.wait=true ^
+            -Dsonar.qualitygate.timeout=300
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
