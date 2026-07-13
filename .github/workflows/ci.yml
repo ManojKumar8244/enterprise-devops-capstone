@@ -44,7 +44,11 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
           sonar-scanner ^
-            -Dproject.settings=sonar-project.properties ^
+            -Dsonar.projectKey=enterprise-devops ^
+            -Dsonar.projectName=enterprise-devops ^
+            -Dsonar.sources=app/src ^
+            -Dsonar.tests=app/tests ^
+            -Dsonar.sourceEncoding=UTF-8 ^
             -Dsonar.host.url=%SONAR_HOST_URL% ^
             -Dsonar.token=%SONAR_TOKEN%
 
