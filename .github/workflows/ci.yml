@@ -31,7 +31,25 @@ jobs:
         run: npm install
 
       - name: Run Tests
-        run: npm test
+        shell: cmd
+        run: |
+          echo Current Directory:
+          cd
+
+          echo Listing Files:
+          dir
+
+          echo Node Version:
+          node --version
+
+          echo NPM Version:
+          npm --version
+
+          echo Jest Version:
+          npx jest --version
+
+          echo Running Tests:
+          npm test -- --runInBand --detectOpenHandles --verbose
 
       - name: Build Application
         run: npm run build
