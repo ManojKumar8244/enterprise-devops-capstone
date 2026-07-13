@@ -38,11 +38,13 @@ jobs:
 
       - name: SonarQube Scan
         shell: cmd
+        working-directory: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
           sonar-scanner ^
+            -Dproject.settings=sonar-project.properties ^
             -Dsonar.host.url=%SONAR_HOST_URL% ^
             -Dsonar.token=%SONAR_TOKEN%
 
