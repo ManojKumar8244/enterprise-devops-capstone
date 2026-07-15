@@ -1,0 +1,16 @@
+Container Image Security – Task 13
+
+Image:
+enterprise-devops:latest
+
+Scanning Tool:
+- Trivy
+- Amazon ECR (Scan-on-Push enabled)
+
+Mitigation:
+- Used node:20-alpine base image.
+- Regularly update OS and application dependencies.
+- Scan images before deployment.
+- Remove unnecessary packages.
+- Enable ECR Scan-on-Push.
+- Use Amazon Inspector Enhanced Scanning where supported.

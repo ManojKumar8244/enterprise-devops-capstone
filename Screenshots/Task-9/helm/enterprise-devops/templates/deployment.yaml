@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: {{ include "enterprise-devops.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+
+spec:
+
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: {{ include "enterprise-devops.name" . }}
+
+  template:
+
+    metadata:
+      labels:
+        app: {{ include "enterprise-devops.name" . }}
+
+    spec:
+
+      containers:
+
+      - name: enterprise-devops
+
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+        ports:
+
+        - containerPort: {{ .Values.service.targetPort }}
+
+        envFrom:
+
+        - configMapRef:
+            name: enterprise-config
+
+        env:
+
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: username
+
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+
+        resources:
+
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+
+        readinessProbe:
+
+          httpGet:
+
+            path: {{ .Values.probes.path }}
+
+            port: {{ .Values.probes.port }}
+
+          initialDelaySeconds: {{ .Values.probes.readinessDelay }}
+
+          periodSeconds: 10
+
+        livenessProbe:
+
+          httpGet:
+
+            path: {{ .Values.probes.path }}
+
+            port: {{ .Values.probes.port }}
+
+          initialDelaySeconds: {{ .Values.probes.livenessDelay }}
+
+          periodSeconds: 15

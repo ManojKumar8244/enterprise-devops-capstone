@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: enterprise-config
+  namespace: {{ .Release.Namespace }}
+
+data:
+  APP_NAME: {{ .Values.config.APP_NAME | quote }}
+  ENVIRONMENT: {{ .Values.config.ENVIRONMENT | quote }}
