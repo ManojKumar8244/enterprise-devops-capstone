@@ -75,11 +75,6 @@ jobs:
         run: |
           docker build -t enterprise-devops:latest .
 
-      - name: Install Trivy
-        shell: powershell
-        run: |
-          choco install trivy -y
-
       - name: Scan Docker Image
         run: |
           trivy image `
