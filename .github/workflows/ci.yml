@@ -70,8 +70,33 @@ jobs:
             -Dsonar.host.url=%SONAR_HOST_URL% ^
             -Dsonar.token=%SONAR_TOKEN%
 
+      - name: Build Docker Image
+        working-directory: .
+        run: |
+          docker build -t enterprise-devops:latest .
+
+      - name: Install Trivy
+        shell: powershell
+        run: |
+          choco install trivy -y
+
+      - name: Scan Docker Image
+        run: |
+          trivy image `
+            --severity CRITICAL,HIGH `
+            --exit-code 1 `
+            --format table `
+            --output trivy-report.txt `
+            enterprise-devops:latest
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: application
           path: app/
+
+      - name: Upload Trivy Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.txt
