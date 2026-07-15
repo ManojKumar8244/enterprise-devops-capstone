@@ -1,26 +1,37 @@
-# Root Cause Analysis
+# Root Cause Analysis (RCA)
+
+## Task
+Phase 7 – Task 14: Pipeline Debugging
 
 ## Issue
 
-Pipeline failed during the Setup NodeJS stage.
+The GitHub Actions CI pipeline failed during the **Setup NodeJS** stage.
 
 ## Root Cause
 
-The GitHub Actions workflow was configured with an invalid Node.js version:
+The workflow was intentionally configured with an invalid Node.js version.
 
 ```yaml
 node-version: 200
 ```
 
-GitHub Actions could not locate this version.
+GitHub Actions could not locate the requested Node.js version, causing the pipeline to fail before dependency installation.
 
 ## Impact
 
-Pipeline execution stopped before dependency installation.
+- Pipeline execution stopped.
+- Build process was interrupted.
+- No application build or security scans were executed.
 
 ## Resolution
 
-Changed the Node.js version back to:
+The workflow configuration was corrected by changing:
+
+```yaml
+node-version: 200
+```
+
+to
 
 ```yaml
 node-version: 20
@@ -28,4 +39,20 @@ node-version: 20
 
 ## Validation
 
-Pipeline executed successfully after correcting the configuration.
+After correcting the configuration:
+
+- Setup NodeJS completed successfully.
+- Dependencies installed.
+- Tests executed successfully.
+- Application built successfully.
+- SonarQube scan completed successfully.
+- Docker image built successfully.
+- Trivy scan completed successfully.
+- Pipeline finished successfully.
+
+## Lessons Learned
+
+- Validate configuration changes before pushing.
+- Use supported tool versions.
+- Review workflow changes before merging.
+- Monitor GitHub Actions logs to quickly identify configuration errors.
