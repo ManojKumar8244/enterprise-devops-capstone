@@ -22,10 +22,11 @@ Observed services included:
 
 ## Trusted Advisor Review
 
-AWS Trusted Advisor was reviewed for recommendations.
+AWS Trusted Advisor was reviewed for cost optimization recommendations.
 
-Note:
-Some Trusted Advisor checks are limited because this project uses an AWS Free Tier/Basic Support account.
+The project is using the AWS Basic Support (Free Tier) plan, which provides only limited Trusted Advisor checks.
+
+Advanced Cost Optimization recommendations require a Business or Enterprise Support plan and are therefore unavailable.
 
 ---
 
