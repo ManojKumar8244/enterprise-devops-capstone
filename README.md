@@ -48,3 +48,28 @@ The project demonstrates modern DevOps practices including Infrastructure as Cod
 | Monitoring | CloudWatch |
 | IaC | Terraform |
 | DevSecOps | SonarQube |
+
+---
+
+# 📂 Repository Structure
+
+```
+enterprise-devops-capstone/
+│
+├── .github/
+├── app/
+├── terraform/
+├── kubernetes/
+├── helm/
+├── external-secrets/
+├── Screenshots/
+│
+├── Dockerfile
+├── README.md
+├── branching-strategy.md
+├── NETWORKING-ISSUE.md
+├── COST-OPTIMIZATION-REPORT.md
+├── sonar-project.properties
+├── trust-policy.json
+└── .gitignore
+```
