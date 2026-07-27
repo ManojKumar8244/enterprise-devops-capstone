@@ -9,7 +9,6 @@ on:
 
     # Only for these branches
     branches:
-      - feature/terraform
       - develop
       - main
 
@@ -59,9 +58,9 @@ jobs:
 
         run: npm run build
 
-      # Upload application as an artifact
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: application
-          path: app/
+      # Build Docker image
+      - name: Build Docker Image
+
+        run: |
+
+          docker build -t myapp:${{ github.sha }} .

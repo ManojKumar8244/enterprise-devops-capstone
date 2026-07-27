@@ -9,7 +9,6 @@ on:
 
     # Only for these branches
     branches:
-      - feature/terraform
       - develop
       - main
 
