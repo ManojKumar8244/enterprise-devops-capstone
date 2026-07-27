@@ -117,3 +117,73 @@ enterprise-devops-capstone/
 ## Phase 8 – Cost Optimization
 
 - Task 16 – AWS Cost Optimization
+
+
+---
+
+# Solution Architecture
+
+The project implements an end-to-end Enterprise DevOps workflow on AWS.
+
+## Workflow
+
+Developer
+
+↓
+
+GitHub Repository
+
+↓
+
+GitHub Flow (Feature Branches)
+
+↓
+
+GitHub Actions CI
+
+↓
+
+Jenkins CI/CD
+
+↓
+
+SonarQube Analysis
+
+↓
+
+Docker Image Build
+
+↓
+
+Amazon ECR
+
+↓
+
+Terraform Infrastructure
+
+↓
+
+Amazon EKS Cluster
+
+↓
+
+Helm Deployment
+
+↓
+
+Kubernetes Services
+
+↓
+
+CloudWatch Monitoring
+
+↓
+
+AWS Secrets Manager
+
+↓
+
+Production Deployment
+
+Architecture diagrams and workflow documentation can be found in the repository documentation.
+
