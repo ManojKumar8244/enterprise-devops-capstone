@@ -26,3 +26,25 @@ The project demonstrates modern DevOps practices including Infrastructure as Cod
 - Kubernetes Troubleshooting
 - AWS Cost Optimization
 
+---
+
+# 🛠 Technology Stack
+
+| Category | Technology |
+|----------|------------|
+| Cloud | AWS |
+| Infrastructure | Terraform |
+| Version Control | Git & GitHub |
+| CI | GitHub Actions |
+| CI/CD | Jenkins |
+| Build Tool | Maven |
+| Code Quality | SonarQube |
+| Container | Docker |
+| Registry | Amazon ECR |
+| Orchestration | Amazon EKS |
+| Kubernetes | kubectl |
+| Package Manager | Helm |
+| Secrets | AWS Secrets Manager |
+| Monitoring | CloudWatch |
+| IaC | Terraform |
+| DevSecOps | SonarQube |
