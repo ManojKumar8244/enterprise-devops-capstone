@@ -51,27 +51,29 @@ The project demonstrates modern DevOps practices including Infrastructure as Cod
 
 ---
 
-# Repository Structure
+# Project Structure
 
-```
+```text
 enterprise-devops-capstone/
 │
 ├── .github/
-├── app/
-├── terraform/
-├── kubernetes/
-├── helm/
-├── external-secrets/
-├── Screenshots/
+│   └── workflows/
 │
+├── Architecture/
+├── Screenshots/
+├── app/
+├── external-secrets/
+├── helm/
+├── kubernetes/
+├── terraform/
+├── .gitignore
+├── COST-OPTIMIZATION-REPORT.md
 ├── Dockerfile
+├── NETWORKING-ISSUE.md
 ├── README.md
 ├── branching-strategy.md
-├── NETWORKING-ISSUE.md
-├── COST-OPTIMIZATION-REPORT.md
 ├── sonar-project.properties
-├── trust-policy.json
-└── .gitignore
+└── trust-policy.json
 ```
 
 ---
